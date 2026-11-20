@@ -22,4 +22,5 @@
 # Keep the main manuscript and generated figure PDFs.
 /*.pdf
 !/main.pdf
+/Letters/*.pdf
 /build/
