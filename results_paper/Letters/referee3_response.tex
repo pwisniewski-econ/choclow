@@ -22,7 +22,7 @@
 \usepackage{currfile}
 \usepackage{xr-hyper}
 \usepackage{hyperref}
-\externaldocument[][nocite]{main} % nocite: do not import the paper's citation keys (the letter has its own bibliography)
+\externaldocument[][nocite]{../main} % nocite: do not import the paper's citation keys (the letter has its own bibliography)
 \newcommand{\comment}[1]{\begingroup #1\endgroup}
 \newcommand{\answer}[1]{\begingroup\color{navy}#1\endgroup}
 
@@ -40,7 +40,7 @@
 \vspace{0.5em}
 \noindent \answer{We thank the referees and the editor for their time and thoughtful feedback. We have revised the paper to address all of the comments raised. We respond below point by point, in blue. To ease the reading, we report all revised Figures and Tables in the appendix of this letter. We also directly quote the revised text in italics.}\par
 
-% \input{Letters/_common_changes}
+% \input{_common_changes}
 
 \section*{Evaluation}
 \comment{
@@ -134,9 +134,9 @@ Figure A13 (displaceed), Figure A2 (brievty).\\
 \answer{These typos have been corrected in this new version.}
 
 
-\bibliographystyle{aer}
-%\bibliography{_REF}
-\bibliography{_REF}
+\bibliographystyle{../aer}
+%\bibliography{../_REF}
+\bibliography{../_REF}
 
 \clearpage
 \appendix
@@ -154,7 +154,7 @@ Figure A13 (displaceed), Figure A2 (brievty).\\
 \caption{Descriptive statistics before displacement: displaced workers (LE) and matched controls (Table~\ref{tab:desc:AllLE} of the paper, formerly Appendix Table A4)}
 \label{tab:R3_desc}
 {\footnotesize
-\input{tables/04_tables/table_1_le_descriptives.tex}}
+\input{../tables/04_tables/table_1_le_descriptives.tex}}
 
 \par\medskip
 \begin{minipage}{0.95\linewidth}\footnotesize\justifying\textsc{Notes}: This table reports the means of several variables for workers dismissed for economic reasons (LE, column 1) and their matched control workers (column 2). All variables are measured before displacement, in the year indicated when relevant; firm-level variables refer to the pre-displacement employer. Standard deviations are in parentheses. The last column reports the Imbens-Rubin normalized difference, a scale-free measure we use to assess balance in observables. All the variables are observed in the DADS panel, except for $\widehat{\psi}_{J(i, t)}$, which refers to the AKM firm fixed effect (see Section~\ref{sec:data:firm:premium} of the paper for details on its estimation). Appendix Table~\ref{apptab:definitions} of the paper summarizes the variables' definitions.\end{minipage}
@@ -165,7 +165,7 @@ Figure A13 (displaceed), Figure A2 (brievty).\\
 \caption{Dispersion of firm-level characteristics across firms, 2002--2015 averages (Appendix Table~\ref{apptab:dispersion} of the paper)}
 \label{tab:R3_dispersion}
 {\footnotesize
-\input{tables/05_firm_dispersion/table_A3_firm_dispersion.tex}}
+\input{../tables/05_firm_dispersion/table_A3_firm_dispersion.tex}}
 
 \par\medskip
 \begin{minipage}{0.95\linewidth}\footnotesize\justifying\textsc{Notes}: Each column reports the distribution across firms of one firm-level characteristic, computed as a within-firm average over 2002--2015. Each column uses all firms of the FICUS-FARE data with non-missing employment and a non-missing value of that characteristic (last row). Table~\ref{tab:firing_hiring_rest} of the paper instead keeps only firms with non-missing values for all its outcomes, hence its smaller sample. \textit{Productivity} is the residual of an OLS regression of log value added on log tangible capital and log employment with year fixed effects, net of 2-digit sector fixed effects -> \textcolor{red}{without additional 2-digit sector residualization}; \textit{VA per worker} is log value added per worker; \textit{labor share} is the log of total labor costs over value added; \textit{wage premium} is the AKM firm fixed effect estimated over 2002--2015 (Section~\ref{sec:data:firm:premium} of the paper). All variables are expressed as deviations from their unweighted mean across firms. In panel A firms are weighted by employment. Panel B reports the $t^D+5$ coefficients of Table~\ref{tab:evstudytable_body} of the paper (panel b for columns 1--3, column (6) of panel a for the wage premium), their absolute value as a share of the employment-weighted interquartile range and in employment-weighted standard-deviation units, and the percentile that a firm initially at the median of panel A would reach after a change equal to the coefficient, obtained by linear interpolation between the median and the adjacent quartile. The event-study outcomes are three-year averages centered on $t^D-4$, which are more dispersed across firms than the fourteen-year averages used here (see the text).\end{minipage}
@@ -178,7 +178,7 @@ Figure A13 (displaceed), Figure A2 (brievty).\\
 \centering
 \caption{Loss in firm wage premium by AKM estimation window, LE sample (Appendix Figure~\ref{fig:akm_windows} of the paper)}
 \label{fig:R3_akm_windows}
-\includegraphics[width=0.95\linewidth,height=0.7\textheight,keepaspectratio]{figures/03_akm_periods/figure_A5_akm_estimation_windows.pdf}
+\includegraphics[width=0.95\linewidth,height=0.7\textheight,keepaspectratio]{../figures/03_akm_periods/figure_A5_akm_estimation_windows.pdf}
 
 \par\medskip
 \begin{minipage}{0.95\linewidth}\footnotesize\justifying\textsc{Notes}: Event-study estimates of the effect of job displacement on the firm wage premium of the current employer (equation~\ref{eq:main_estimating_equation}), for the LE sample. In each panel, the AKM firm fixed effects are estimated over the window indicated in the title; the top-left panel (2002--2015) is the baseline of Figure~\ref{fig:fe_current_event} of the paper, and is reproduced as a dashed grey line in the other panels. $N$ is the number of worker-year observations; it varies across windows because the set of firms with an estimated premium changes with the window. $t^D-2$ is the reference period. Standard errors are clustered at the worker level.\end{minipage}
