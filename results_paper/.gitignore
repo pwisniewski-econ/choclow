@@ -1,0 +1,25 @@
+# LaTeX intermediates; runtime logs are ignored by the root .gitignore.
+*.aux
+*.bbl
+*.blg
+*.out
+*.toc
+*.lof
+*.lot
+*.ptc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ind
+*.ilg
+
+# Keep the main manuscript and generated figure PDFs.
+/*.pdf
+!/main.pdf
+/build/

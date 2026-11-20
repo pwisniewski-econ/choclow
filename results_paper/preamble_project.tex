@@ -1,0 +1,13 @@
+% Definitions formerly supplied by the unavailable root Overleaf document.
+\pdfminorversion=7
+\usepackage{floatrow}
+\usepackage{colortbl}
+\newcolumntype{Z}{>{\hsize=.5\hsize\linewidth=\hsize}X}
+\providecommand{\sym}[1]{\ifmmode^{#1}\else\(^{#1}\)\fi}
+% Avoid widening figures beyond the enclosing subfigure or text column.
+\setkeys{Gin}{keepaspectratio}
+\usepackage{etoolbox}
+\AtBeginEnvironment{table}{\singlespacing}
+\AtBeginEnvironment{figure}{\singlespacing}
+\AtBeginEnvironment{figure*}{\singlespacing}
+\setlength{\emergencystretch}{2em}

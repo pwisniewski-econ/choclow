@@ -1,0 +1,204 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+% Cette version repart de 03_Draft\Layoff-short-current.tex %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{preamblemalg1}
+\documentclass[12pt,french,american,a4paper]{article}
+\input{preamble_initial}
+%\usepackage[margin=2.5cm]{geometry}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{ulem}
+\usepackage{bbm}
+\usepackage[capposition=top]{floatrow}
+
+\newcommand{\sym}[1]{#1}
+\usepackage{pdflscape}
+%\newcommand{\sym}[1]{\rlap{#1}}% Thanks to David Carlisle
+
+%\usepackage[colorinlistoftodos]{todonotes}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\textbf{Understanding the Reallocation of Displaced Workers to Firms}}
+
+\author{Paul Brandily%\thanks{Centre for Economic Performance, paul.brandily@psemail.eu} 
+\and Camille Hémet\thanks{Paris School of Economics, Université Paris 1 Panthéon-Sorbonne and CEPR, \protect \\
+camille.hemet@psemail.eu} \and 
+Clément Malgouyres\thanks{CNRS-CREST, IPP-PSE, clement.malgouyres@ensae.fr} \and Patryk Wisniewski\thanks{CREST, ENSAE Paris, Institut Polytechnique de Paris \protect \\ 
+\protect \\ 
+We thank Richard Audoly, Clément Bosquet, Thomas Breda, Ana Rute Cardoso, Pierre-Philippe Combes, Gabrielle Fack, Florence Goffette-Nagot, Rachel Griffith, François Fontaine, Laurent Gobillon, Francis Kramarz, Miren Lafourcade, Thomas Le Barbanchon, Guy Michaels, Vladimir Pecheu, Roland Rathelot, Gilles Saint-Paul and Sebastian Siegloch, as well as participants at INSEAD - Collège de France brownbag seminar, CREST-ENSAI seminar, Institute for Public Policies (IPP) internal seminar, Université Paris-Saclay (RITM) seminar, PSE macroeconomic workshop, LISER, SOLE annual meeting and TEPP annual meeting for useful comments and discussion. This work is supported by several public grants overseen by the French National Research Agency (ANR-10-EQPX-17 - Centre d'accès sécurisé aux données - CASD, ANR-18-CE22-0013-01, ANR-19-CE26-0004 and the EUR grant ANR-17-EURE-0001), and benefited from CEPREMAP and CREST funding.}}
+
+\date{\today}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% CETTE VERSION : Révision EJ
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\input{preamble_project.tex}
+\begin{document}
+
+\maketitle
+
+
+
+
+\begin{abstract}\singlespacing
+We study job displacement in France. In the medium run, losses in firm-specific wage premia account for a substantial share of the overall cost of displacement. However, despite the positive correlation between wage premia and productivity in the cross-section of firms, we find that workers are reemployed by high-productivity, low -labor-share firms. Workers are re-employed by productive firms but this reallocation comes at a cost to workers. We show further that destination firms are less likely to conclude collective wage agreements and have lower participation rates at professional elections. Overall, our results point to a decline in worker bargaining power.
+
+	
+	\noindent \textbf{JEL classification}: J63, J31 \\ %J52, L25
+	\noindent \textbf{Keywords}: Displaced workers, Wage, Reallocation, Productivity, Labor share.
+\end{abstract}
+
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\input{01_intro}
+
+\FloatBarrier
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Data, sample construction and institutional setting} \label{sec:Data} 
+\input{02_data}
+\FloatBarrier
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Earnings losses and the role of firm wage premia} \label{sec:FEtheory}
+\input{03_role_FE}
+
+
+\FloatBarrier
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Patterns of reallocation: firm productivity and bargaining} \label{sec:Reallocation}
+
+\subsection{Dynamics of productivity and labor share following reallocation}\label{sec:dynamics}
+\input{04_role_firm}
+
+\subsection{Anatomy of reallocation} \label{sec:Anatomy}
+\input{05_anatomy}
+
+\subsection{Firm-level measures of collective bargaining} \label{sec:Nego}
+\input{06_bargaining}
+
+%\FloatBarrier
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{The role of reservation wage}
+%\label{sec:ResW}
+%\input{reswage.tex}
+
+
+\FloatBarrier
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion} \label{sec:CCL}
+
+\input{07_conclusion}
+\FloatBarrier
+
+
+
+\newpage
+\section*{Figures and Tables}
+
+\input{08_figures_tables}
+
+\FloatBarrier
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{aer}
+\bibliography{_REF}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\appendix
+%\appendixpage
+
+\setcounter{page}{1}
+
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+\begin{center}
+	\noindent { \Large  {\textbf{Online Appendix to}: \\ \textbf{Understanding the Reallocation of Displaced Workers to Firms}}}\bigskip
+	
+	
+	
+	{\large
+	Paul Brandily \qquad Camille Hémet \qquad Clément Malgouyres \qquad Patryk Wisniewski }\bigskip\\
+	{\large April 2026}
+
+\end{center}
+
+\startcontents[sections]
+\printcontents[sections]{l}{1}{\setcounter{tocdepth}{2}}
+
+%%\begin{enumerate}
+%%	\item[A] Additional Tables and Figures mentioned in the body of the paper
+%%	\item[B] Details on the estimation procedure of the firm premiums 
+%%	\item[A] Details on definition of the mass-layoff sample
+%%    \item[A] Background information on labor market institutions in France 
+%%\end{enumerate}
+
+
+\clearpage
+\section{Additional Tables and Figures}
+\input{A_app_tables_figures}
+
+%%\FloatBarrier
+%%\subsection{Effects by quartile of initial wage premium}
+%%\input{appendix/effects_quartile_FE.tex}
+%%
+%%\input{def_samples/Samples.tex}
+
+\clearpage
+\section{Economic layoffs in France}
+\input{B_LE_definition}
+
+%\clearpage
+%\section{Estimation of firm premiums\label{appsec:fe_estimation}}
+%\input{appendix/fe_estimation.tex}
+
+
+\clearpage
+\section{Mass-layoff sample: construction and description \label{appsec:mlo}}
+\input{C_MLO30}
+
+\clearpage
+\section{Robustness: stayer control group\label{app:stayer_controls}}
+\input{D_stayer_controls.tex}
+
+\clearpage
+\section{Negotiation\label{appsec:nego}}
+\input{E_negociation}
+
+%\FloatBarrier
+%%
+%%\section{Miscellaneous\label{appsec:others}}
+%%\input{appendix/others.tex}
+
+
+
+\end{document}
+
+

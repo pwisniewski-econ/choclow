@@ -1,0 +1,26 @@
+% Generated from the current results_analysis CSV files by plots_tables/run_all.R.
+% Table A5; status: ready
+% Text definitions retained; no numerical regression results copied.
+% -- means a requested statistic is unavailable; an empty cell means not applicable.
+{
+\begin{tabularx}{\textwidth}{ZXlZ}
+\hline
+Dataset & Description & Period & Main use \\
+\hline
+&&&\\
+DADS postes & (\textit{Déclaration Annuelle des Données Sociales}) is a matched employer-employee dataset coming from the administrative declaration that all employers report annually to social security authorities and tax administration; we restrict the sample to companies governed by private law. DADS contains information on firms and establishments (unique identifier; size; industry) as well as on each employees’ job (occupation, wage, hours worked, start and end date, type of contract, etc.). Firm (SIREN) unique id. & ]2001-2015[ & Compute firm premium \\
+\rowcolor{lightgray} Panel DADS & Is a panel version of DADS (cf. above) containing a random sample of 1/12 of the universe of workers. Firm (SIREN) and worker unique id. & ]2001-2015[ & Workers' trajectories. Samples construction. \\
+FH-DADS  & Matches the Panel DADS (cf. above) to the FH (Fichier Historique) data, an historical administrative file produced by the national unemployment agency (\textit{Pôle Emploi}) which records individuals’ unemployment spells. Any job seeker claiming unemployment benefits appears in the FH, which contains information about date of registration, duration and level of unemployment benefits. Firm (SIREN) and worker unique id. & [2002-2012] & Identify workers laid-off for economic reasons \\
+\rowcolor{lightgray} FICUS-FARE  & Is a nearly exhaustive administrative dataset built from the corporate tax returns and the social security declaration of the universe of firms in the non-financial corporate sector. We use the FICUS-FARE panel as processed by \citet{burstein_etal_2025}. Firm (SIREN) unique id. & ]2001-2015[ & Firms' productivity, value-added, etc. \\
+D@ccord  & D@ccord data reports information about firms' negotiations regarding collective agreement. In France, firms are required by the labor law to report any negotiation (successfull or not). The Ministry of Labor then builds this data set. Useful information contains: the matter of negotiation (wages, hours, etc.), the parties negotiating or signing (trade union, etc.), outcome, date of signature. Firm (SIREN) unique id. & [2005-2007[ & Collective agreements. \\
+\rowcolor{lightgray} Workplace election  & Data reports the results of all workplace election held in France over 2009-2012. The election is characterized by its electoral college and its outcome (share of voters, vote by trade union, etc.) Firm (SIREN) unique id. & [2009-2012] & Workplace election turnout and failure. \\
+&&&\\ \hline
+\end{tabularx}
+}
+
+
+
+
+
+
+

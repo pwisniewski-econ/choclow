@@ -1,0 +1,126 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                   %
+% Cette version repart de 03_Draft\figures_tables-short-current.tex %
+%                                                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Moved from the appendix (former Table A4) in the R2 revision, in response to Referee 3's point 1.
+\begin{table}[h!]\caption{Descriptive statistics before displacement: displaced workers (LE) and matched controls}\label{tab:desc:AllLE}
+	\begin{center}
+		\input{tables/04_tables/table_1_le_descriptives.tex}
+	\end{center}
+	\floatfoot{{\footnotesize \textsc{Notes}: This table reports the means of several variables for workers dismissed for economic reasons (LE, column 1) and their matched control workers (column 2). All variables are measured before displacement, in the year indicated when relevant; firm-level variables refer to the pre-displacement employer. Standard deviations are in parentheses. The last column reports the Imbens-Rubin normalized difference, a scale-free measure we use to assess balance in observables. All the variables are observed in the DADS panel, except for $\widehat{\psi}_{J(i, t)}$, which refers to the AKM firm fixed effect (see Section \ref{sec:data:firm:premium} for details on its estimation). Appendix Table \ref{apptab:definitions} summarizes the variables' definitions.}}
+\end{table}
+
+\FloatBarrier
+
+\begin{table}[h!]\caption{Event-Study Estimates}\label{tab:evstudytable_body}
+	
+	\begin{subtable}{\textwidth}\renewcommand{\arraystretch}{0.81} \caption{Worker-level outcomes}
+		{\footnotesize
+			
+			\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{l|lllllll}\toprule
+				\input{tables/04_tables/table_2_a_worker_outcomes.tex}
+				
+				
+				
+		\bottomrule
+\end{tabular}
+\end{adjustbox}}
+	\end{subtable}
+	
+	\begin{subtable}{\textwidth}\renewcommand{\arraystretch}{0.81} \caption{Firm-level outcomes}	{\footnotesize
+			\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{l|lllll}\toprule
+				\input{tables/04_tables/table_2_b_firm_outcomes.tex}
+		\bottomrule
+\end{tabular}
+\end{adjustbox}}
+	\end{subtable}
+	
+	\floatfoot{{\footnotesize  \textsc{Notes}: This table presents event-study estimates of the cost of job displacement for a sample of workers dismissed for economic reasons from equation \ref{eq:main_estimating_equation}. %and associated text for more details on the specification. 
+ Worker-level outcomes are presented in panel (a) and firm-level outcomes are presented in panel (b). 
+%\textbf{Timing}: 
+Firm-level outcomes are computed as three-year averages centered on $t^D-4$ (i.e.\ over $t^D-5$, $t^D-4$, and $t^D-3$); the wage premium is the AKM firm fixed effect estimated over 2002--2015. Displacements occur from 2005 to 2012. Accordingly, event-study coefficients reflect the movement of displaced workers across initially different firms and \textit{not} within-firm changes. %\textbf{Outcomes}: Table \ref{apptab:definitions} summarizes variables' definition. 
+ \textbf{Worker-level outcomes}: \textit{employed} is an indicator taking value 1 if individual has positive hours and earnings at time $t$. \textit{Earnings} are gross earnings in year $t$. \textit{Hourly wage} is the ratio of earnings over hours worked. Column (3) to (5) are built on logarithmic transformation of those outcomes. Wage \textit{premium} are estimated as firm-fixed effects in a two-way regression of log-hourly wage on firm and worker fixed effects, following the AKM framework (see section \ref{sec:data:firm:premium} for more details). \textit{Ratio} is the ratio of the coefficients of premium over hourly wage. Columns (3) to (7) are estimated on worker-years with positive hours and earnings, i.e.\ conditional on re-employment (see Section \ref{sec:decomposition_losses}). \textbf{Firm outcomes}: \textit{Productivity} is obtained as the residual of an OLS regression of value-added on the book value of tangible capital and labor with year fixed effects. \textit{Value-added per worker} is computed as value-added over reported employment. \textit{Labor share} is computed as total labor cost over value-added.
+ \textbf{Negotiation variables}: \textit{Wage agreement} refers to collective wage agreement and is an indicator equal to 1 when firms signed at least one agreement related to wages over the period 2005 to 2007. \textit{Election turnout} captures each firm's average turnout at 2009--2012 workplace elections.
+ \textbf{Additional information}: Table \ref{apptab:definitions} provides more details on variables' definition. Appendix Table \ref{apptab:evstudy_worker_outcomes} and \ref{apptab:evstudy_firm_outcomes} provide more complete versions including pre-trends, R$^2$, sample size and coefficients at $d=+6$ for both worker and firm outcomes respectively.}}
+\end{table}
+
+\FloatBarrier
+\begin{landscape}
+\begin{table}[h!]\caption{Comparison of origin and destination firms with respect to a broad set of firms}\label{tab:firing_hiring_rest}
+	{\footnotesize
+		\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{lllll}\toprule
+			\input{tables/04_tables/table_3_origin_destination.tex}
+	\bottomrule
+\end{tabular}
+\end{adjustbox}}
+	\floatfoot{{{\footnotesize \textsc{Notes}: %WP stand for wage premium. 
+				This table reports coefficients of cross-sectional regressions of firm characteristics on a dummy for origin firms and a dummy for destination firms. Origin firms are those where displaced workers were employed the year before displacement; destination firms are those where displaced workers were employed four or five years later. There is a very small overlap between the two sets of firms. All firm-level statistics are computed as within-firm averages over the 2002--2015 period; the wage premium is the AKM firm fixed effect estimated over the same period, as is standard in the literature on displacement. All accounting ratio are in log. z-statistics based on robust standard errors in parentheses. {*} \(p<0.05\), 
+				{**} \(p<0.01\), *** \(p<0.001\)}}}
+\end{table}
+\end{landscape}
+
+
+
+\FloatBarrier
+\begin{figure}[h!] \begin{center}	
+		\caption{Decomposition of the cost of job displacement} \label{fig:fe_current_event}
+		\includegraphics[width=\linewidth, trim={0cm 0cm 0.1cm 0cm}, clip,max width=\linewidth]{figures/01_event_figures/figure_1_le_wage_decomposition.pdf} \\
+		\floatfoot{\footnotesize{\textsc{Notes}: This figure reports event-study estimates of the effect of job displacement on log hourly wage, log hours, log earnings and firm-specific wage premium for a sample of workers dismissed for economic reasons (LE)---see equation (\ref{eq:main_estimating_equation}) and associated text for more details on the specification. All estimates are computed on worker-years with positive hours and earnings, i.e.\ conditional on re-employment (see Section \ref{sec:decomposition_losses}). In the text, the ratios $\beta^{\text{AKM}}/\beta^{\text{earnings}}$ and $\beta^{\text{hourly}}/\beta^{\text{earnings}}$ are equal to the effect on firm-specific premium and hourly wage respectively divided by the effect on overall earnings and represents the fraction (expressed in percents) of total earnings losses due to each effect at $d=2,6$. \textbf{Sample}: The sample contains 8{,}341 individuals laid-off for economic reasons who end-up being re-employed post-displacement. \textbf{Outcomes}: Table \ref{apptab:definitions} provides more details on variables' definition.  Wage premia are estimated, following the AKM framework, as firm-fixed effects in a two-way regression of log-hourly wage on firm and worker fixed effects---see section \ref{sec:data:firm:premium} for more details. \textbf{Additional information}: Table \ref{tab:evstudytable_body} reports coefficients' value. Appendix Table \ref{apptab:evstudy_worker_outcomes} provides more details. \textbf{Standard errors}: robust standard errors clustered at the worker-level; displayed confidence intervals at the 99\% level.	}}
+\end{center} \end{figure}
+
+
+\begin{figure}[h!] \centering
+	\caption{Productivity and labor share of current employers\label{fig:ln_apl_ls}}
+
+
+	\begin{subfigure}[b]{.49\textwidth}
+		\centering
+		\caption[]{\small Productivity} \label{fig:prod_res_within_btw}
+		\includegraphics[scale=0.49,max width=\linewidth]{figures/01_event_figures/figure_2_a_productivity.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{.49\textwidth}
+		\centering
+		\caption[]{\small Labor share of value-added} \label{fig:ln_Lshare_within_btw}
+		\includegraphics[scale=0.49,max width=\linewidth]{figures/01_event_figures/figure_2_b_labor_share.pdf}
+	\end{subfigure}
+
+	\begin{subfigure}[b]{.49\textwidth}
+	\caption{Firm Wage Premium} \label{fig:firm_fe_within_btw}
+	\includegraphics[width=\linewidth,max width=\linewidth]{figures/01_event_figures/figure_2_c_firm_premium.pdf}
+	%	\floatfoot{\footnotesize{\textsc{Notes}: The sample contains 9,251 economic dismissals. 99\% confidence interval are displayed, based on robust standard errors clustered at the worker-level. The specification includes individual and year fixed-effects, see equation (\ref{eq:main_estimating_equation}) and associated text for more details. 
+	%			Productivity is computed as the residual of a regression of value-added onto tangible capital and employment during the period 2001-2004.}}
+\end{subfigure}
+
+
+	\floatfoot{\footnotesize{\textsc{Notes}: 
+			This figure reports event-study estimates of the effect of job displacement on the reallocation of workers towards firms with varying levels of productivity, value added per workers and labor share. Coefficients are obtained by estimating the specification of equation \ref{eq:main_estimating_equation} where the dependent variable is sequentially productivity, value added per worker and labor share. \textbf{Sample}: The sample contains 8,341 individuals laid-off for economic reasons who end-up being re-employed post-displacement. Productivty can be estimated for only 7,524 of those. \textbf{Comment on timing}: Firm-level outcomes are computed as three-year averages centered on $t^D-4$ (i.e.\ over $t^D-5$, $t^D-4$, and $t^D-3$), while displacements occur from 2005 to 2012. Accordingly, event-study coefficients reflect the movement of workers to firms with different initial characteristics and \textit{not} within-firm changes. \textbf{Definition of firm-level outcomes}: See Table \ref{apptab:definitions} for details. Productivity is the residual of an OLS regression of value-added on tangible capital and labor with year fixed effects. The labor share is computed as total labor cost over value-added. In lighter shade, we display the coefficients using a decomposition each of these variables as well as the AKM fixed-effect into a sectoral average at the 3-digit level (between sector $\bar{y}_s$ ) and a deviation from the sectoral average (within sector $R_i=y_i - \bar{y}_s$). The relative size of the within effect is computed as the absolute value of the within effect divided by the sum of the absolute value of the two effects, $|\beta_{\text{within}}| / (|\beta_{\text{within}}|+|\beta_{\text{between}}|)$, evaluated at the latest available horizon for each outcome: $t^D+5$ for productivity (where firm-level balance-sheet data are available only through that horizon) and $t^D+6$ for the labor share and the AKM firm wage premium. \textbf{Additional information}: Table \ref{tab:evstudytable_body} reports coefficients' value. Appendix Table \ref{apptab:evstudy_firm_outcomes} provides more details. \textbf{Standard errors}: robust standard errors clustered at the worker-level; displayed confidence intervals at the 99\% level.}}
+\end{figure}
+
+%, where value-added is deflated using 2-digit value added deflator (\textit{Indice de prix de la valeur ajoutée brute par branche})
+
+%The sample contains 10,336 economic dismissals. 99\% confidence interval are displayed, based on robust standard errors clustered at the worker-level. The specification includes individual and year fixed-effects, see equation (\ref{eq:main_estimating_equation}) and associated text for more details. 
+
+\begin{figure}[h!] \centering
+	\caption{Quality of labor relations: firm-level measures  \label{fig:LE_accords}}
+	%\caption{Firm-level collective agreements \label{fig:LE_accords}}
+	\begin{subfigure}[b]{.49\textwidth}
+		\centering
+		\caption[]{\small Indicator of wage agreement (2005-2007)} \label{fig:LE_acc_main}
+		\includegraphics[width=\linewidth,max width=\linewidth]{figures/01_event_figures/figure_3_a_wage_agreement.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{.49\textwidth}
+		\centering
+		\caption[]{\small Election turnout} \label{fig:LE_elec_main}
+		\includegraphics[width=\linewidth,max width=\linewidth]{figures/01_event_figures/figure_3_b_election_turnout.pdf}
+	\end{subfigure}
+	
+	\floatfoot{\footnotesize{\textsc{Notes}: This figure reports event-study estimates of the effect of job displacement the reallocation of workers towards with varying propensities to conclude collective agreements (panel \ref{fig:LE_acc_main}) and turnouts at professional elections (panel \ref{fig:LE_elec_main})---see equation (\ref{eq:main_estimating_equation}) and associated text for more details on the specification. \textbf{Definition of the outcomes:} The dependent variable pertaining to collective agreements is an indicator equal to 1 when firms signed at least one agreement related to wages over the period 2005 to 2007. Because we restrict the focus to LE laid-off post 2007, we do not observe individuals after $t^D+4$. The variable on firm's average turnout at workplace election is computed based on elections taking place over 2009-2012. More details are provided in Section \ref{sec:Nego}, and Table \ref{apptab:definitions} provides more details on variables' definition. \textbf{Comment on timing:} Each firm is associated with a single value of each outcome, so that event-study coefficients reflect reallocation of workers between firms and not within-firm changes in such outcomes.
+	\textbf{Additional information}: Appendix Tables \ref{tab:nego:LEnego_acc_result} and \ref{tab:nego:LEnego_ele_result} provide detailed results.
+	\textbf{Standard errors}: robust standard errors clustered at the worker level; displayed confidence intervals at the 99\% level.}} 
+\end{figure}
+

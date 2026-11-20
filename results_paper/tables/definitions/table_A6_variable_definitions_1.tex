@@ -1,0 +1,34 @@
+% Generated from the current results_analysis CSV files by plots_tables/run_all.R.
+% Table A6; status: ready
+% Text definitions retained; no numerical regression results copied.
+% -- means a requested statistic is unavailable; an empty cell means not applicable.
+{
+%\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabularx}{\textwidth}{ZXlZ}
+	%\begin{tabular}{l*{3}{c}}
+\hline
+%\multicolumn{1}{c}{Outcome}&\multicolumn{1}{c}{Definition}&\multicolumn{1}{c}{Period}&\multicolumn{1}{c}{Source}\\
+Outcome & Definition & Period & Source\\
+\hline
+&&&\\
+\multicolumn{4}{l}{\textbf{Worker}} \\ 
+Employed  & Indicator taking value 1 if the workers has worked (positive hours and earning). & $t$ & DADS panel \\
+\rowcolor{lightgray} Earnings & Total of gross wages earned by the worker. Missing data is coded 0. & $t$ & DADS panel \\
+Hours worked  & Total hours worked by the worker. Missing data is coded 0.  & $t$ & DADS panel \\
+\rowcolor{lightgray} Hourly wage (or wage rate)  & Earnings over Hours. & $t$ & DADS panel \\
+(log) Earnings  & Log of: Earnings (cf. above) & $t$& DADS panel\\
+\rowcolor{lightgray} (log) Hours  & Log of: Hours (cf. above)  & $t$& DADS panel \\
+(log) Hourly wage & Log of: Hourly wage (cf. above) & $t$ & DADS panel \\
+\rowcolor{lightgray} \# employees  & Number of workers in the firm on December 31st. & $t$ & DADS panel \\
+Premium $\widehat{\psi}_{J(i, t)}$ & Firm fixed effect associated with the firm in an AKM framework presented in equation \ref{eq:akm_basics}. & 2002-2015$^{a}$ & DADS  \\
+&&&\\
+\multicolumn{4}{l}{\textbf{Firm}} \\
+\rowcolor{lightgray} Productivity & Residual of an OLS regression of \textcolor{red}{log} value-added on the \textcolor{red}{log of} book value of tangible capital and labor with year fixed effect. & $t^D-4^{a,b}$ & FICUS-FARE \\
+VA / Worker & Computed as value-added over reported employment. & $t^D - 4^{a, b}$ & FICUS-FARE \\ 
+\rowcolor{lightgray} Labor share & Total labor cost over value-added. & $t^D - 4^{a, b}$ & FICUS-FARE \\
+Manufacturing & Indicator for firms whose sector is (at least once over the period) manufacturing. &2002-2015$^{a}$ & FICUS-FARE \\&&&\\
+\hline
+\end{tabularx}
+}
+%$[t^D-7;t^D-3]$
+
