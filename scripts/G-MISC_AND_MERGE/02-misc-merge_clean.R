@@ -143,8 +143,14 @@ elec_samples <- function(filename){
   elec_cols <- colnames[stringr::str_detect(colnames, "_09")]
   elec_path <- "results_building/elec_samples/"
   
-  DATA[, nbsa0507_ent := sum(nbsa_ent[an%in%2005:2007], na.rm = TRUE)/sum(an%in%2005:2007, na.rm = TRUE), by = .(siren)]
-  DATA[, nbsa09_ent := sum(nbsa_ent[an==2009], na.rm = TRUE)/sum(an==2009, na.rm = TRUE), by = .(siren)]
+  DATA[!is.na(siren), nbsa09_ent := mean(nbsa_ent[an == 2009], na.rm = TRUE), by = .(siren)]
+
+  # Average reports within each firm-year, retaining their observed frequencies,
+  # then give each observed year equal weight in the period means.
+  DATA[!is.na(siren), nbsa_ent_year := mean(nbsa_ent, na.rm = TRUE), by = .(siren, an)]
+  DATA[!is.na(siren), nbsa0507_ent := mean(unique(.SD[an %in% 2005:2007])$nbsa_ent_year, na.rm = TRUE), by = .(siren), .SDcols = c("an", "nbsa_ent_year")]
+  DATA[!is.na(siren), nbsa_ent_mean := mean(unique(.SD[!is.na(an)])$nbsa_ent_year, na.rm = TRUE), by = .(siren), .SDcols = c("an", "nbsa_ent_year")]
+  DATA[, nbsa_ent_year := NULL]
   
   DATA[, paste0(c("nbsa0507_ent", "nbsa09_ent"), "_bins") := lapply(.SD, \(x) fcase(
     x <= 10, "size1", 
@@ -156,10 +162,10 @@ elec_samples <- function(filename){
   write_parquet(DATA[(!is.na(shinscrit_carence_siren0912)&nbsa09_ent>=1)|employed==0][, c(acco_cols, acco_alt_cols) := NULL], 
                 paste0(elec_path, filename, "-election.parquet"), compression = "zstd")
   
-  write_parquet(DATA[(!is.na(wage_agreement_ind_0507)&nbsa_ent>=50)|employed==0][, c(acco_alt_cols, elec_cols) := NULL], 
+  write_parquet(DATA[(!is.na(wage_agreement_ind_0507)&nbsa_ent_mean>=50)|employed==0][, c(acco_alt_cols, elec_cols) := NULL],
                 paste0(elec_path, filename, "-acco_isin.parquet"), compression = "zstd")
   
-  write_parquet(DATA[(!is.na(wage_agreement_ind_0507_alt)&nbsa_ent>=50)|employed==0][, c(acco_cols, elec_cols) := NULL], 
+  write_parquet(DATA[(!is.na(wage_agreement_ind_0507_alt)&nbsa_ent_mean>=50)|employed==0][, c(acco_cols, elec_cols) := NULL],
                 paste0(elec_path, filename, "-acco_alt.parquet"), compression = "zstd")
   
   return(0)

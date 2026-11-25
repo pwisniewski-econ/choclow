@@ -37,6 +37,9 @@
 \vspace{0.5em}
 % \noindent \answer{Answer TBW.}\par
 
+\vspace{0.5em}
+\noindent \answer{We thank the Editor and the referees for their time and thoughtful feedback. We have revised the paper to address all of the comments raised by R3. Below, we respond to the Editor's letter point by point, in blue. }\par
+
 % \input{_common_changes}
 
 \section*{Editor's letter}
@@ -77,33 +80,44 @@
 
 \answer{Referee 3 made four comments, mainly aimed at improving clarity, and pointed out two typos, which we corrected. Each comment led to a change in the paper. Our response to Referee 3 discusses every point and quotes the new text; we summarize the changes below.
 
-\begin{itemize}[leftmargin=*]
+\begin{enumerate}[leftmargin=*]
 \item \textbf{Descriptive statistics.} The table comparing displaced workers and their matched controls before displacement, previously Appendix Table A4, is now Table~\ref{tab:desc:AllLE} of the paper. Its caption, its notes and the text of Section~\ref{sec:stat_desc} now state explicitly that all variables are measured before displacement, and the text reports the pre-displacement means of hourly wages, hours worked and annual earnings. The main text therefore has six exhibits instead of five, which we think the gain in readability justifies.
 
 \item \textbf{Selection of re-employed workers.} Section~\ref{sec:decomposition_losses} now states that the decomposition of wage losses is conditional on re-employment and quantifies the resulting selection: displaced workers are 22 percentage points less likely to be employed than their controls at $t^D+2$, and still 14 points less likely at $t^D+5$. Over this period, the hourly-wage loss is stable while the loss in firm wage premia grows. The notes of Table~\ref{tab:evstudytable_body} and Figure~\ref{fig:fe_current_event} now indicate which estimates condition on re-employment.
 
-\item \textbf{Time variation in firm wage premia.} The referee suggested a robustness exercise, or at least a brief discussion; we did both. A new paragraph in Section~\ref{sec:robustness} discusses the evidence that firm pay policies drift over time (Lachowska et al., 2023; Engbom et al., 2023), and the new Appendix Figure~\ref{fig:akm_windows} re-estimates the firm wage premia over five sub-periods of 2002--2015 and re-runs the event study with each set of premia. The loss in firm wage premia appears in every window, with the same timing, and ranges from $-0.027$ to $-0.046$ at $t^D+5$, against $-0.037$ in the baseline. The smallest loss comes from premia estimated over 2002--2005, a window that largely predates the displacement events.
+\item \textbf{Time variation in firm wage premia.} The referee suggested a robustness exercise, or at least a brief discussion; we did both. A new paragraph in Section~\ref{sec:robustness} discusses the evidence that firm pay policies drift over time \citep{lachowska2023drift,engbom2023firmpay}, and the new Appendix Figure~\ref{fig:akm_windows} re-estimates the firm wage premia over five sub-periods of 2002--2015 and re-runs the event study with each set of premia. The loss in firm wage premia appears in every window, with the same timing, and ranges from $-0.027$ to $-0.046$ at $t^D+5$, against $-0.037$ in the baseline. The smallest loss comes from premia estimated over 2002--2005, a window that largely predates the displacement events but also where the connected set is smaller than when we consider longer periods.
 
-\item \textbf{Magnitude of the productivity and labor-share effects.} The new Appendix Table~\ref{apptab:dispersion} reports the employment-weighted dispersion of productivity, value added per worker, labor share and firm wage premia across all firms in the fiscal data, and Section~\ref{sec:dynamics} uses it as a yardstick. The 0.134 log-point productivity gap at $t^D+5$ amounts to a quarter -> \textcolor{red}{22\%} of the interquartile range of productivity, equivalent to moving a firm from the median to about the 63rd -> \textcolor{red}{60th} percentile of the distribution. The labor-share gap represents 21\% of the interquartile range of the labor share and would move a median firm to about the 40th -> \textcolor{red}{41st} percentile.
-\end{itemize}}\par
+\item \textbf{Magnitude of the productivity and labor-share effects.} In Section~\ref{sec:dynamics} we compare our results to the employment-weighted dispersion of productivity, value added per worker, labor share and firm wage premia across all firms in the fiscal data. 
+
+
+For instance, the 0.134 log-point productivity gap at $t^D+5$ amounts to 22\% of the interquartile range of productivity, equivalent to moving a firm from the median to about the 60th percentile of the distribution. The labor-share gap represents 21\% of the interquartile range of the labor share and would move a median firm to about the 41st percentile.
+
+The statistics are further reported in new Appendix Table~\ref{apptab:dispersion}.
+
+\end{enumerate}}\par
 
 
 \section*{Main changes in estimates between the two versions}
 
-\answer{All results in the revised version come from a complete run of our replication package on the updated source files. Most estimates change only in the second or third decimal, and the qualitative conclusions of the paper are unchanged. We list the main changes below; numbers from the previous version are in parentheses.
+\answer{All results in the revised version come from a complete run of our replication package. The changes between the two versions are related to updates in the underlying sources. Most estimates change only in the second or third decimal, and the qualitative conclusions of the paper are unchanged. We list the main changes below; numbers from the previous version are in parentheses. In all cases, changes are pretty marginal. The main changes are that the changes in wage premium is a bit smaller and the changes in labor share are a bit larger. 
 
 \begin{itemize}[leftmargin=*]
 \item \textbf{Samples.} The LE sample now includes 21,132 displaced workers (20,897) and the mass-layoff sample 17,946 (17,949). The number of observations available for firm-level outcomes changes more: for instance, it increases by 29\% for productivity in the LE sample (Appendix Table~\ref{apptab:evstudy_firm_outcomes}).
 
 \item \textbf{Employment, earnings and hours.} These estimates are virtually unchanged. One year after displacement, the employment probability of displaced workers is 31.5 percentage points lower (31.7) and their annual earnings are 13,687 euros lower (13,883). Five years after displacement, the losses are $-0.318$ log points for earnings ($-0.304$) and $-0.231$ log points for hours ($-0.223$) (Table~\ref{tab:evstudytable_body}, panel a).
 
-\item \textbf{Hourly wages and firm wage premia.} The hourly-wage loss at $t^D+5$ is $-0.101$ ($-0.098$). The loss in firm wage premia is smaller than in the previous version, mostly in the first years after displacement: $-0.022$ ($-0.047$) at $t^D+1$ and $-0.037$ ($-0.042$) at $t^D+5$. Firm wage premia therefore account for 37\% of the hourly-wage loss at $t^D+5$ (43\%) (Table~\ref{tab:evstudytable_body}, column 7, and Figure~\ref{fig:fe_current_event}). This share is 63\% in the mass-layoff sample (66\%) and 59\% with the unrestricted AKM premium (61\%).
+\item \textbf{Hourly wages and firm wage premia.} The hourly-wage loss at $t^D+5$ is $-0.101$ ($-0.098$). The loss in firm wage premia is smaller than in the previous version, mostly in the first years after displacement: $-0.022$ ($-0.047$) at $t^D+1$ and $-0.037$ ($-0.042$) at $t^D+5$. Firm wage premia therefore account for 37\% of the hourly-wage loss at $t^D+5$ (43\%) (Table~\ref{tab:evstudytable_body}, column 7, and Figure~\ref{fig:fe_current_event}). This share is 64\% in the mass-layoff sample (66\%) and 59\% with the unrestricted AKM premium (61\%).
 
 \item \textbf{Productivity and labor share of destination firms.} At $t^D+5$, destination firms are 0.134 log points more productive (0.139) and their labor share is 0.074 log points lower (0.068) (Table~\ref{tab:evstudytable_body}, panel b). At $t^D+6$, the last horizon of Figure~\ref{fig:prod_res_within_btw}, the within-sector component accounts for 55\% of the productivity gain. The figure of the previous version ended at $t^D+5$, where this share was 70\%.
 
 \item \textbf{Collective agreements.} In the previous version, outcomes related to collective agreements were only measured for firms with more than 100 employees. We now lower this threshold to 50 employees. This makes the sample more representative and aligns it with French labor law: firms with 50 employees or more must set up a works council, and unions can appoint union delegates, who negotiate collective agreements with the employer. The number of observations rises from 74,011 to 89,202 (Appendix Table~\ref{apptab:evstudy_firm_outcomes}). With this broader sample, displaced workers are 5.9 percentage points less likely to work for a firm that signed a wage agreement at $t^D+4$ (7.8) (Appendix Table~\ref{tab:nego:LEnego_acc_result}).
 
-\item \textbf{Professional elections.} Turnout in destination firms is 8.9 percentage points lower at $t^D+5$. The previous version reported two different values for this coefficient, $-0.070$ in Table~\ref{tab:evstudytable_body} and $-0.108$ in Appendix Table~\ref{tab:nego:LEnego_ele_result}; both tables now report the same estimate.
+\item \textbf{Professional elections.} Turnout in destination firms is 8.9 percentage points lower at $t^D+5$ (7.0) (Table~\ref{tab:evstudytable_body}, panel b).
 \end{itemize}}\par 
 
+\bibliographystyle{../aer}
+\bibliography{EJ_R2/_REF}
+%\bibliography{../_REF}
+
 \end{document}
+   

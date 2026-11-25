@@ -1,10 +1,8 @@
 * 23/07/2021
 use "./data/external/import_casd/2009.dta", clear
 drop if _n==1
-drop if numsuffragesvalab > numvotants & !missing(numsuffragesvalab) 
-* More valid votes than voters, that's very democratic of you! 
-* Or maybe you just can't report election results properply but that's on you, I'm dropping you :)
-* This represents ~100 elections (ie. arround 0.04% of our sample)
+* Missing inputs are handled per outcome below. Observed contradictions in
+* election-wide counts instead invalidate the entire election report.
 
 * NB: pas de doublon dans la base initiale in terms of all variables
 * Mais j'ai remarqué que certaines lignes étaient strictement identiques, sauf pour le n° du deuxième tour (assez incompréhensible ???)
@@ -22,6 +20,21 @@ drop if year=="2013"
 
 * Keep main elections only (drop élections partielles)
 drop if partielcomplet == "P"
+
+* Reject untrustworthy reports from EVERY outcome. Compare only observed
+* counts: missing values alone are not evidence of a contradiction.
+gen byte inconsistent_counts = ///
+    (!missing(numvotants, numinscrits) & numvotants>numinscrits) | ///
+    (!missing(numsuffragesvalab, numvotants) & numsuffragesvalab>numvotants) | ///
+    numinscrits<0 | numvotants<0 | numsuffragesvalab<0 | numbulletinsvalab<0
+* Counts repeat on union-list rows. If any row is contradictory, remove all
+* rows of that election before summing CGT ballots; never retain a partial sum.
+bys elenum: egen byte inconsistent_election = max(inconsistent_counts)
+bys elenum: gen byte inconsistent_election_tag = inconsistent_election==1 & _n==1
+quietly count if inconsistent_election_tag==1
+display as text "Excluded elections with contradictory counts: " as result r(N)
+drop if inconsistent_election==1
+drop inconsistent_counts inconsistent_election inconsistent_election_tag
 
 
 * DEFINITION DE VOTE CGT
@@ -45,34 +58,31 @@ bys elenum: egen candidat_cgt = total(cgt)
 replace candidat_cgt = (candidat_cgt>0)
 label var candidat_cgt "At least one CGT candidate at the election"
    
-* pour chaque élection : part du vote CGT-FO  
+* Sum CGT lists within each election, before reducing to one election row.
+* A partial sum is not a known total: preserve missingness if any CGT list
+* has missing ballots. Negative counts have already been excluded above.
+* Zero is justified when no CGT list is present,
+* under the union classification above, or when all CGT ballots are known zero.
+gen double cgt_ballots = numbulletinsvalab if cgt==1
+gen byte cgt_ballots_unknown = cgt==1 & missing(numbulletinsvalab)
+bys elenum: egen byte incomplete_cgt = max(cgt_ballots_unknown)
+bys elenum: egen double total_vote_cgt = total(cgt_ballots)
 
-* NB: on doit d'abord sommer les scores des différents syndicats affilités CGT (différentes branches) pour une même élections
-bys elenum cgt: egen temp = total(numbulletinsvalab) if cgt==1
-replace numbulletinsvalab = temp if cgt==1
-drop temp
+replace total_vote_cgt = . if incomplete_cgt==1
+replace total_vote_cgt = 0 if candidat_cgt==0
 
-gen total_vote_cgt = numbulletinsvalab if cgt==1
-sort elenum total_vote_cgt
-bys elenum: carryforward total_vote_cgt, replace
-
-
-
-*assert candidat_cgt==0 if part_vote_cgt == .
-*69 contradictions in 158,705 observations
-*assertion is false
-*pour la plupart, il s'agit d'élections où numsuffragesvalab==0
-*pour 1 election: numsuffragesvalab==.
-
-replace total_vote_cgt = 0 if missing(total_vote_cgt)
-gen part_vote_cgt = total_vote_cgt / numsuffragesvalab
-replace part_vote_cgt = 0 if numsuffragesvalab==0
-
-
-* For each election : Dummy: "CGT vote share > 10%"
-gen sup10_cgt = 1 if part_vote_cgt>=0.1 & part_vote_cgt!=.
-replace sup10_cgt = 0 if part_vote_cgt < 0.1
-label var sup10_cgt "CGT obtained more than 10% of votes"
+* CGT-specific inconsistencies invalidate this rate, not the whole election.
+gen double part_vote_cgt = total_vote_cgt / numsuffragesvalab ///
+    if !missing(total_vote_cgt, numsuffragesvalab) & numsuffragesvalab>0 ///
+    & inrange(total_vote_cgt, 0, numsuffragesvalab)
+gen byte sup10_cgt = (part_vote_cgt>=0.1) if !missing(part_vote_cgt)
+* With zero valid and CGT votes, threshold success is zero but the vote
+* share itself remains undefined; registered weights must not turn 0/0 into 0.
+replace sup10_cgt = 0 if numsuffragesvalab==0 & total_vote_cgt==0
+* Known absence of a CGT candidate implies no CGT threshold success,
+* even when the valid-vote denominator is unreported.
+replace sup10_cgt = 0 if candidat_cgt==0
+label var sup10_cgt "CGT obtained at least 10% of votes"
 
 keep siren siret year elenum effectif numinscrits numvotants numsuffragesvalab institution candidat_cgt part_vote_cgt total_vote_cgt sup10_cgt carence deno_college
 
@@ -83,47 +93,61 @@ assert dup==0
 drop dup
 
 
-* Nb total d'inscrits toutes institutions confondues, pour une même entreprise:
-bys siren: egen numinscrit_tot_siren0912 = total(numinscrits), missing
-bys siren: egen numvotants_tot_siren0912 = total(numvotants), missing
-bys siren: egen numvalab_tot_siren0912 = total(numsuffragesvalab), missing
-bys siren: egen numcgt_tot_siren0912 = total(total_vote_cgt), missing 
-
-
-* Nb total d'inscrits, toutes institutions confondues, pour une mm SIREN, dont le candidat CGT correspondant a fait plus de 10% dans son collège:
-gen numinscrit_sup10cgt = numinscrits * sup10_cgt
-bys siren: egen nbinscrit_sup10cgt_siren0912 = total(numinscrit_sup10cgt)  
-
-* Part des employés, tout collèges confondus qui ont élu un représentant (toute institution confondue) CGT avec plus de 10% des voix, pour un SIREN:
-gen shinscrit_sup10cgt_siren0912 = nbinscrit_sup10cgt_siren0912 / numinscrit_tot_siren0912
-label variable shinscrit_sup10cgt_siren0912 "Share of registered voters who eleceted a CGT representative with more than 10% of votes"
-
-* Calcul de la participation au niveau SIREN, touts collèges confondus 
-* Nb de votants tous collèges et institutions confondus:
-gen participation_siren0912 = numvotants_tot_siren0912 / numinscrit_tot_siren0912
-
-* Taux de blancs/nuls au niveau SIREN
-gen bnuls_siren0912 = 1 - (numvalab_tot_siren0912 / numvotants_tot_siren0912)
-
-* Taux CGT au niveau SIREN 
-gen cgt_siren0912 = numcgt_tot_siren0912 / numvalab_tot_siren0912
-
-
-
-* Carence 
+* Election-level outcomes among the retained reports. Missing inputs or
+* unusable denominators invalidate the relevant rate, never becoming zero.
+gen double participation_elec = numvotants / numinscrits ///
+    if !missing(numvotants, numinscrits) & numinscrits>0
+gen double bnuls_elec = 1 - numsuffragesvalab / numvotants ///
+    if !missing(numsuffragesvalab, numvotants) & numvotants>0
 destring carence, replace
-gen numinscrit_carence = numinscrits * carence
-bys siren: egen nbinscrit_carence_siren0912 = total(numinscrit_carence)  
-gen shinscrit_carence_siren0912 = nbinscrit_carence_siren0912 / numinscrit_tot_siren0912
+gen byte carence_elec = carence if inlist(carence, 0, 1)
 
-bys siren: egen mean_carence = mean(carence)
-replace shinscrit_carence_siren0912 = 1 if mean_carence==1
+* Firm electoral environment: weight every outcome by registered voters.
+* Each outcome has its own observed rates. Missing registration counts propagate
+* to both weighted quantities; zero counts contribute zero. Recompute the
+* registration total for each outcome rather than reusing a different support.
+local rates participation_elec bnuls_elec part_vote_cgt sup10_cgt carence_elec
+local outcomes participation_siren0912 bnuls_siren0912 cgt_siren0912 ///
+    shinscrit_sup10cgt_siren0912 shinscrit_carence_siren0912
 
-label variable shinscrit_carence_siren0912 "Share of registered voters who did not have a candidate"
+forvalues j = 1/5 {
+    local rate : word `j' of `rates'
+    local outcome : word `j' of `outcomes'
+    tempvar obs_weight weighted_value total_weight total_value
+
+    gen double `obs_weight' = numinscrits if !missing(`rate')
+    gen double `weighted_value' = `rate' * `obs_weight'
+    bys siren: egen double `total_weight' = total(`obs_weight'), missing
+    bys siren: egen double `total_value' = total(`weighted_value'), missing
+    gen double `outcome' = `total_value' / `total_weight'
+
+    * Verify the result; this assertion does not select or drop observations.
+    assert inrange(`outcome', 0, 1) | missing(`outcome')
+    drop `obs_weight' `weighted_value' `total_weight' `total_value'
+}
+
+* Preserve the all-failed exception only when EVERY recorded election
+* explicitly reports failure. Unknown carence must not qualify as failure.
+* If all elections failed, the share is one regardless of missing weights.
+bys siren: egen byte all_failed = min(carence_elec==1)
+replace shinscrit_carence_siren0912 = 1 if all_failed==1
+
+label variable participation_siren0912 "Registered-voter-weighted turnout over elections with usable counts"
+label variable bnuls_siren0912 "Registered-voter-weighted blank/invalid share over elections with usable counts"
+label variable cgt_siren0912 "Registered-voter-weighted CGT vote share over elections with usable counts"
+label variable shinscrit_sup10cgt_siren0912 "Share of registered voters covered by a known CGT result of at least 10%"
+label variable shinscrit_carence_siren0912 "Share of registered voters without a candidate, among known election statuses"
+
+
 
 keep siren shinscrit_carence_siren0912 participation_siren0912 bnuls_siren0912 cgt_siren0912 shinscrit_sup10cgt_siren0912
 duplicates drop 
+* Retain the existing final sample rule: the failure share must be observed.
 drop if mi(shinscrit_carence_siren0912) | shinscrit_carence_siren0912<0
+
+* Preserve the column order used to assign downstream regression model IDs.
+order siren shinscrit_sup10cgt_siren0912 participation_siren0912 ///
+    bnuls_siren0912 cgt_siren0912 shinscrit_carence_siren0912
 
 save "./data/interim/elections_pro/elections_siren_year_0912.dta", replace
 

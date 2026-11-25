@@ -16,7 +16,7 @@ The D@ccord data enables us to build several variables describing the type, numb
 
 Our main measure of collective agreement is an indicator taking value 1 if a firm has signed (at least) one agreement relative to earnings (i.e. type 1.) over the 2005-2007 period, and 0 otherwise. We assign 0 to firm for which we do not observe any agreements (our results are robust to excluding those) -> (\textcolor{red}{this is the old definition, we have the that the firm has to have operated during 2005-2007 and has at least 50 workers}) \textcolor{orange}{[proposed: ``The sample is restricted to firms that operated over 2005--2007 and had at least 50 employees; firms for which no agreement is observed are assigned 0 (our results are robust to excluding them).'']}. Alternatively, we consider a continuous version of the outcome, summing all the observed agreements on earnings over the period (and assigning 0 to other firms). Next, we consider failed negotiations about the same topic; that is negotiations that yield no signed agreement. Finally, we also consider indicators for the signature of (at least) one agreement of each of the other types separately. 
 
-Table \ref{tab:nego:LEnego_acc_desc} describes the distribution of those outcomes in our sample of analysis. About 61.5\% of firms employing individuals in our sample \textcolor{orange}{[24.6\%: Table~\ref{tab:nego:LEnego_acc_desc}, mean 0.246]} have signed (at least) one agreement about wages over 2005-2007. This leads to an average number of 2.27 agreements \textcolor{orange}{[0.89]} signed by those firms over the period. At the same time, 26.9\% also failed to sign \textcolor{orange}{[10.4\%]} a wage agreement they had started to negotiate. Finally, 53.2\% signed an agreement on working time and hours \textcolor{orange}{[21.1\%]}.
+Table \ref{tab:nego:LEnego_acc_desc} describes the distribution of those outcomes \textcolor{orange}{in the sample used in the regressions: LE workers displaced after 2007 and their controls, in the years in which their employer has at least 50 employees}. About \textcolor{orange}{XX.X\%} of firms employing individuals in \textcolor{orange}{this} sample have signed (at least) one agreement about wages over 2005-2007. This leads to an average number of \textcolor{orange}{X.XX} agreements signed by those firms over the period. At the same time, \textcolor{orange}{XX.X\%} also failed to sign a wage agreement they had started to negotiate. Finally, \textcolor{orange}{XX.X\%} signed an agreement on working time and hours. \textcolor{orange}{[XX: to be filled from the new export of Table~\ref{tab:nego:LEnego_acc_desc}, computed on this sample]}
 
 
 % Est-ce qu'on dit participation en anglais ? ou les 2 (participation et intéressement) vont dans "profit sharing" ?
@@ -36,12 +36,12 @@ Table \ref{tab:nego:LEnego_acc_desc} describes the distribution of those outcome
 \begin{center}
 \label{tab:nego:LEnego_acc_desc}
 \begin{adjustbox}{max width=\linewidth}
-\begin{tabular}{l|lllllll}\toprule
+\begin{tabular}{l|llllll}\toprule
 \input{tables/04_tables/table_A16_agreements_descriptives.tex}
 \bottomrule
 \end{tabular}
 \end{adjustbox}
-\floatfoot{{\footnotesize \textsc{Notes}: This table provides simple descriptive statistics about collective agreements outcomes. \textbf{Sample}: The sample of interest is all workers laid-off for economic reason (LE) after 2007, and their respective controls. \textbf{Outcomes}: Table \ref{apptab:definitions} summarizes variables' definition. Wage agreement indicator takes value 1 if the firm has signed (at least) one agreement relative to wages, and 0 otherwise. \# Wage agreement is the number of wages agreement signed by the firm. Wage failure indicator takes value 1 if the firm has failed to conclude (at least) one negotiation relative to wages. Hours agreement indicator takes value 1 if the firm has signed (at least) one agreement relative to hours and working time.}}
+\floatfoot{{\footnotesize \textsc{Notes}: This table provides simple descriptive statistics about collective agreements outcomes. \textbf{Sample}: The sample of interest is all workers laid-off for economic reason (LE) after 2007, and their respective controls. \textcolor{orange}{As in the event-study regressions, statistics are computed over their worker-years with a non-missing outcome in which the employer has at least 50 employees.} \textcolor{orange}{[the table printed here is still the unrestricted export (202,550 observations, 14,264 treated); the new export replaces it]} \textbf{Outcomes}: Table \ref{apptab:definitions} summarizes variables' definition. Wage agreement indicator takes value 1 if the firm has signed (at least) one agreement relative to wages, and 0 otherwise. \# Wage agreement is the number of wages agreement signed by the firm. Wage failure indicator takes value 1 if the firm has failed to conclude (at least) one negotiation relative to wages. Hours agreement indicator takes value 1 if the firm has signed (at least) one agreement relative to hours and working time.}}
 
 \end{center}
 \end{table}
@@ -114,7 +114,7 @@ Table \ref{tab:nego:LEnego_ele_desc} describes the empirical distribution of tho
 	\begin{center}
 		\label{tab:nego:LEnego_ele_desc}
 		\begin{adjustbox}{max width=\linewidth}
-\begin{tabular}{l|lllllll}\toprule
+\begin{tabular}{l|llllll}\toprule
 			\input{tables/04_tables/table_A17_elections_descriptives.tex}
 			\bottomrule
 		\end{tabular}
@@ -238,20 +238,20 @@ Table \ref{tab:nego:LEnego_ele_result} presents our main results on elections ou
 	\bottomrule
 \end{tabular}
 \end{adjustbox}}	
-\floatfoot{{\footnotesize \textsc{Notes}: This table presents event-study estimates of the reallocation of workers displaced for economic reason (LE) across firms with different professional election turnout ---see equation (\ref{eq:main_estimating_equation}) and associated text for more details on the specification. \textbf{Comment on timing}: Firm-level outcomes are computed over the 2009-2012 period. Because of a risk of reverse causality, we perform robustness checks in Table \ref{tab:nego:LEnego_ele_rob}. Because we fix firm-characteristics over time, event-study coefficients reflect the movement of displaced workers to firms with different initial characteristics and \textit{not} changes within-firm in such characteristics. \textbf{Outcomes}: Table \ref{apptab:definitions} summarizes variables' definition. Average turnout is at elections held by the firm between 2009-2012 (worker-weighted). Failed is share of workers covered by a failed election. CGT is the share of workers covered by a (potential) CGT DS representative. Details are given in \ref{appsec:elec_data}. \textbf{Standard errors}: robust standard errors clustered at the worker-level.}}
+\floatfoot{{\footnotesize \textsc{Notes}: This table presents event-study estimates of the reallocation of workers displaced for economic reason (LE) across firms with different professional election turnout ---see equation (\ref{eq:main_estimating_equation}) and associated text for more details on the specification. \textbf{Comment on timing}: Firm-level outcomes are computed over the 2009-2012 period. Because of a risk of reverse causality, we perform robustness checks in Table \ref{tab:nego:LEnego_ele_rob}. Because we fix firm-characteristics over time, event-study coefficients reflect the movement of displaced workers to firms with different initial characteristics and \textit{not} changes within-firm in such characteristics. \textbf{Outcomes}: Table \ref{apptab:definitions} summarizes variables' definition. Average turnout is at elections held by the firm between 2009-2012 (worker-weighted). Failed is share of workers covered by a failed election. CGT is the share of workers covered by a (potential) CGT DS representative \textcolor{red}{I feel the claim about DS is too strong we could just say: CGT measures the registered-voter-weighted share of elections in which CGT-affiliated lists received at least 10\% of valid votes.}. Details are given in \ref{appsec:elec_data}. \textbf{Standard errors}: robust standard errors clustered at the worker-level.}}
 \end{center}
 \end{table}
 
 \begin{table}[h] 
-\caption{Election robustness}\label{tab:nego:LEnego_ele_rob}
+\caption{Election robustness \textcolor{red}{[Added (3)]}}\label{tab:nego:LEnego_ele_rob}
 \begin{center}
 {\footnotesize\begin{adjustbox}{max width=\linewidth}
-\begin{tabular}{l|lll}\toprule
+\begin{tabular}{l|llll}\toprule
 		\input{tables/04_tables/table_A21_elections_robustness.tex}
 		\bottomrule
 \end{tabular}
 \end{adjustbox}}
 %\scalebox{.8}{\input{03_Draft/tables/LEnego_ele_rob.tex}}
-\floatfoot{{\footnotesize \textsc{Notes}: This table presents event-study estimates of the reallocation of workers displaced for economic reason (LE) across firms with different professional election turnout ---see equation (\ref{eq:main_estimating_equation}) and associated text for more details on the specification. \textbf{Comment on timing}: Firm-level outcomes are computed over the 2009-2012 period. We perform robustness checks in this table. Because we fix firm-characteristics over time, event-study coefficients reflect the movement of displaced workers to firms with different initial characteristics and \textit{not} changes within-firm in such characteristics. \textbf{Outcomes}: Table \ref{apptab:definitions} summarizes variables' definition. Average turnout is at elections held by the firm between 2009-2012 (worker-weighted). Details are given in \ref{appsec:elec_data}. \textbf{Specifications}: Column (1) replicates the first column of Table \ref{tab:nego:LEnego_ele_result}. Column (2) replicates column (1) but controlling for firm size. Column (3) estimates the effect on a sub-sample made of the quarter of laid-off workers that were part of the smallest layoff (as a share of firm employment). \textbf{Standard errors}: robust standard errors clustered at the worker-level.}}
+\floatfoot{{\footnotesize \textsc{Notes}: This table presents event-study estimates of the reallocation of workers displaced for economic reason (LE) across firms with different professional election turnout ---see equation (\ref{eq:main_estimating_equation}) and associated text for more details on the specification. \textbf{Comment on timing}: Firm-level outcomes are computed over the 2009-2012 period. We perform robustness checks in this table. Because we fix firm-characteristics over time, event-study coefficients reflect the movement of displaced workers to firms with different initial characteristics and \textit{not} changes within-firm in such characteristics. \textbf{Outcomes}: Table \ref{apptab:definitions} summarizes variables' definition. Average turnout is at elections held by the firm between 2009-2012 (worker-weighted). Details are given in \ref{appsec:elec_data}. \textbf{Specifications}: Column (1) replicates the first column of Table \ref{tab:nego:LEnego_ele_result}. Column (2) replicates column (1) but controlling for firm size. \textcolor{red}{Column (3) adds a size bin control}. Column (4) estimates the effect on a sub-sample made of the quarter of laid-off workers that were part of the smallest layoff (as a share of firm employment). \textbf{Standard errors}: robust standard errors clustered at the worker-level.}}
 \end{center}
 \end{table}

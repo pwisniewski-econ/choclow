@@ -207,6 +207,7 @@ invisible(lapply(c("LE", "MLO_matching", "MLO_other"), function(kind) {
 
 # Tables A10/A11: exact formula filters. reg_id is always 12, so it is not a key.
 correlations <- read_result("tbl_a6-corr_akm/le5_panelsize0.csv")
+correlation_premium <- "fe0215_god2"
 firm_rhs <- c("ln_emp_mean_0215 | minmax_year",
               "ln_emp_mean_0215+ln_va_mean_0215 | minmax_year",
               "ln_emp_mean_0215+ln_apl_mean_0215 | minmax_year",
@@ -223,8 +224,8 @@ invisible(lapply(c("firm", "bargaining"), function(kind) {
   samples <- if (kind == "firm") rep("le5_panelsize0-fixed-one", 8) else
     rep(c("le5_panelsize0-acco_alt-one", "le5_panelsize0-elec-one"), each = 3)
   columns <- lapply(seq_along(rhs), function(j) {
-    d <- correlations |> filter(sample == samples[j], dep_var == "fe0215_god2", errors == "~minmax_year",
-                                 formula == paste0("fe0215_god2~", rhs[j]))
+    d <- correlations |> filter(sample == samples[j], dep_var == correlation_premium, errors == "~minmax_year",
+                                 formula == paste0(correlation_premium, "~", rhs[j]))
     stopifnot(nrow(d) > 0, !anyDuplicated(d$variable))
     d
   })
@@ -251,34 +252,39 @@ invisible(lapply(c("firm", "bargaining"), function(kind) {
   })
   lines <- c(lines, unlist(row_lines, use.names = FALSE))
   save_table(lines, if (kind == "firm") "firm_Pooled_regression_fe0115.tex" else "firm_Pooled_nego_fe0115.tex",
-             note = if (kind == "firm") "Unrestricted AKM; unweighted; minmax_year-clustered errors." else
-               "Uses LE-specific default acco_alt/election samples, not a pooled LE+MLO regression. Caption needs corresponding sample wording.")
+             note = paste("Unrestricted AKM (fe0215_god2); unweighted; minmax_year-clustered errors.",
+                          if (kind == "firm") "Uses the LE firm sample." else
+                            "Uses LE-specific default acco_alt/election samples."))
 }))
 
-# Tables A16/A17: agreement regressors use the exported trailing underscore.
-negotiation_moments <- read_result("misc-descriptive_statistics/desc_sample-acco_elec.csv") |>
-  filter(sample == LE)
+# Tables A16/A17: use the corresponding LE agreement/election sample.
+negotiation_moments <- read_result("misc-descriptive_statistics/desc_sample-acco_elec.csv")
 invisible(lapply(c("agreements", "elections"), function(kind) {
-  variables <- if (kind == "agreements") c("wage_agreement_ind_", "wage_agreement_num_", "wage_agreement_fail_", "hours_agreement_ind_") else
-    c("participation_siren", "shinscrit_carence_siren", "shinscrit_sup10cgt_siren")
+  sample_name <- if (kind == "agreements") ACCORDS else ELECTIONS
+  variables <- if (kind == "agreements") c("wage_agreement_ind_0507_alt", "wage_agreement_num_0507_alt", "wage_agreement_fail_0507_alt", "hours_agreement_ind_0507_alt") else
+    c("participation_siren0912", "shinscrit_carence_siren0912", "shinscrit_sup10cgt_siren0912")
   labels <- if (kind == "agreements") c("Wage agreement indicator", "\\# Wage agreement", "Wage failure ind.", "Hours agreement ind.") else
     c("Average turnout", "Failed (\\% workers)", "CGT (\\% workers)")
-  d <- negotiation_moments[match(variables, negotiation_moments$var_name), ]
-  stopifnot(!anyNA(d$var_name))
+  d <- negotiation_moments[negotiation_moments$sample_name == sample_name &
+                             negotiation_moments$var_name %in% variables, ]
+  stopifnot(nrow(d) == length(variables), !anyDuplicated(d$var_name))
+  d <- d[match(variables, d$var_name), ]
+  stopifnot(!anyNA(d$var_name), !anyNA(d$n_nonmiss), all(d$n_nonmiss <= d$n_obs))
   percentile <- if (kind == "agreements") "p75" else "p50"
-  lines <- c(tex_row("", c("Mean", "sd", "min", percentile, "max")), "\\hline")
+  lines <- c(tex_row("", c("Mean", "sd", "min", percentile, "max", "$N$")), "\\hline")
   row_lines <- lapply(seq_len(nrow(d)), function(i) {
     q <- d[[percentile]][i]
-    cells <- c(fmt(d$mean[i]), fmt(d$sd[i]), fmt(d$min[i], 0), fmt(q, if (kind == "agreements") 0 else 3), fmt(d$max[i], if (kind == "agreements") 0 else 3))
+    cells <- c(fmt(d$mean[i]), fmt(d$sd[i]), fmt(d$min[i], 0), fmt(q, if (kind == "agreements") 0 else 3), fmt(d$max[i], if (kind == "agreements") 0 else 3), fmt(d$n_nonmiss[i], 0))
     c(tex_row(labels[i], cells))
   })
   lines <- c(lines, unlist(row_lines, use.names = FALSE))
   stopifnot(length(unique(d$n_obs)) == 1, length(unique(d$n_individuals_treated)) == 1)
-  lines <- c(lines, "\\hline", tex_row("Observations", c(fmt(unique(d$n_obs), 0), rep("", 4))),
-             tex_row("\\# Treated", c(fmt(unique(d$n_individuals_treated), 0), rep("", 4))))
+  lines <- c(lines, "\\hline",
+             tex_row("\\# Treated (sample)", c(fmt(unique(d$n_individuals_treated), 0), rep("", 5))))
   save_table(lines, if (kind == "agreements") "LEnego_acc_desc.tex" else "LEnego_ele_desc.tex",
-             note = if (kind == "agreements") "ALT descriptive universe from main_samples; not necessarily the exact regression sample." else
-               "Uses exported p50. Failed = no-candidate share, not blank votes.")
+             note = paste0("Sample: ", sample_name, ". N counts nonmissing observations for each outcome; the treated count describes the full sample. ",
+                           if (kind == "agreements") "Agreement outcomes cover 2005-2007; uses exported p75." else
+                             "Election outcomes cover 2009-2012; uses exported p50. Failed = no-candidate share, not blank votes."))
 }))
 
 # Tables A18/A20: baseline bargaining effects, with the paper's column counts.
@@ -302,7 +308,7 @@ lines <- c(lines, tex_row("Legal size bins (4)", c("", "", "$\\surd$", "")))
 save_table(lines, "LEnego_acc_rob.tex",
              note = "Column 4 is acco_isin. Empty legacy lnsize coefficient row omitted because control coefficients are not exported.")
 
-# Table A21: lowest quartile of layoff share, with the cutoff recorded in description.
+# Table A21: baseline, log size, log size + bins, and the smallest-layoff sample.
 small_layoff_description <- events |>
   filter(sample == ELECTIONS, dep_var == "participation_siren0912",
          startsWith(description, "sample: lowest quartile of layoff share")) |>
@@ -310,7 +316,9 @@ small_layoff_description <- events |>
 stopifnot(length(small_layoff_description) == 1)
 columns <- list(select_event(ELECTIONS, "participation_siren0912"),
                 select_event(ELECTIONS, "participation_siren0912", description_value = "controls: log(nbsa_ent)"),
+                select_event(ELECTIONS, "participation_siren0912", description_value = "controls: log(nbsa_ent) + bins"),
                 select_event(ELECTIONS, "participation_siren0912", description_value = small_layoff_description))
-save_table(event_table(columns, rep("Average turnout", 3), -3:6, footer = c("n_ind", "n_treated")),
-             "LEnego_ele_rob.tex",
-             note = paste("Column 3:", small_layoff_description))
+lines <- event_table(columns, rep("Average turnout", 4), -3:6, footer = c("n_ind", "n_treated"))
+lines <- c(lines, tex_row("Legal size bins (4)", c("", "", "$\\surd$", "")))
+save_table(lines, "LEnego_ele_rob.tex",
+             note = paste("Column 3: log size + legal size bins. Column 4:", small_layoff_description))

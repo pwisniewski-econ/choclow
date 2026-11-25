@@ -168,49 +168,39 @@ write_csv(OCCUP_COMPARISONS, "results_analysis/misc-descriptive_statistics/cs1_s
 
 summ_acco <- function(filename){
   
-  summstat <- function(DATA, suffix){
-    RES <- DATA |> 
-      summarise(across(ends_with(suffix), 
-                       list(
-                         mean = ~mean(.x, na.rm=TRUE), 
-                         sd = ~sd(.x, na.rm=TRUE),
-                         min = ~min(.x, na.rm=TRUE),
-                         p25 = ~quantile(.x, .25, na.rm=TRUE),
-                         p50 = ~quantile(.x, .50, na.rm=TRUE),
-                         p75 = ~quantile(.x, .75, na.rm=TRUE),
-                         max = ~max(.x, na.rm=TRUE), 
-                         n_obs = ~n(), 
-                         n_nonmiss = ~sum(!is.na(.x))
-                       ), 
-                       .names = "{.col}__{.fn}")) |>
-      pivot_longer(everything()) |>
-      mutate(var_name = str_remove(name, paste0(suffix, ".*")), summstat = str_remove(name, ".*__")) |>
-      pivot_wider(id_cols = var_name, values_from = value, names_from = summstat) |>
-      mutate(n_individuals_treated = length(unique(DATA[T==1]$id2)), n_individuals_control = length(unique(DATA[T==0]$id2)), n_firms = length(unique(DATA$siren)))
-    
-    return(RES)
-  }
-  
-  DATA <- open_dataset(paste0("results_building/main_samples/",filename,".parquet")) |>
+  DATA <- open_dataset(paste0("results_building/elec_samples/",filename,".parquet")) |>
     select(id2, siren, `T`, ends_with("07_alt"), ends_with("_0507"), ends_with("0912")) |>
-    collect()
+    collect() |>
+    setDT()
   
-  refvar <- c("_0507"="wage_agreement_ind_0507", "0507_alt"="wage_agreement_ind_0507_alt", "0912"="shinscrit_carence_siren0912")
-  
-  
-  results <- list()
-  
-  for (i in 1:length(refvar)) {
-    results[[length(results)+1]] <- DATA |> 
-      filter(!is.na(.data[[refvar[i]]])) |>
-      summstat(names(refvar[i])) 
-  }
-  
-  return(mutate(bind_rows(results),  sample = filename))
+  RES <- DATA |>
+    summarise(across(matches("_0507|_0507_alt|0912"),
+                     list(
+                       mean = ~mean(.x, na.rm=TRUE),
+                       sd = ~sd(.x, na.rm=TRUE),
+                       min = ~min(.x, na.rm=TRUE),
+                       p25 = ~quantile(.x, .25, na.rm=TRUE),
+                       p50 = ~quantile(.x, .50, na.rm=TRUE),
+                       p75 = ~quantile(.x, .75, na.rm=TRUE),
+                       max = ~max(.x, na.rm=TRUE),
+                       n_obs = ~n(),
+                       n_nonmiss = ~sum(!is.na(.x))
+                     ),
+                     .names = "{.col}__{.fn}")) |>
+    pivot_longer(everything()) |>
+    mutate(var_name = str_remove(name, "__.*"), summstat = str_remove(name, ".*__")) |>
+    pivot_wider(id_cols = var_name, values_from = value, names_from = summstat) |>
+    mutate(
+      n_individuals_treated = length(unique(DATA[T==1]$id2)),
+      n_individuals_control = length(unique(DATA[T==0]$id2)),
+      n_firms = length(unique(DATA$siren)),
+      sample_name = filename)
+
+  return(RES)
   
 }
 
-all_samples <- str_remove(list.files("results_building/main_samples/"), ".parquet")
+all_samples <- str_remove(list.files("results_building/elec_samples/"), ".parquet")
 
 lapply(all_samples, summ_acco) |> 
   bind_rows() |>
